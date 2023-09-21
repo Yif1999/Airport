@@ -169,7 +169,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -184,7 +184,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -210,13 +210,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655009054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15298092, y: -0.0079339, z: 0.0012282326, w: 0.98819655}
+  m_LocalRotation: {x: 0.1526944, y: -0.012268911, z: 0.02925082, w: 0.9877643}
   m_LocalPosition: {x: -5.28, y: 3, z: -10.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 17.6, y: -0.92, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.6, y: -0.92, z: 3.25}
 --- !u!114 &655009062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,7 +376,6 @@ GameObject:
   - component: {fileID: 1078428393}
   - component: {fileID: 1078428392}
   - component: {fileID: 1078428391}
-  - component: {fileID: 1078428395}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -471,18 +470,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0.56, z: 0}
---- !u!114 &1078428395
+--- !u!1 &1135001758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100010, guid: be094f8a0c180104781ee9752fd02c5c, type: 3}
+  m_PrefabInstance: {fileID: 1856434276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1135001763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078428390}
+  m_GameObject: {fileID: 1135001758}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65a09d55854e6f34aa78a385e37936fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 655009056}
 --- !u!1001 &1856434276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -538,7 +543,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100010, guid: be094f8a0c180104781ee9752fd02c5c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135001763}
   m_SourcePrefab: {fileID: 100100000, guid: be094f8a0c180104781ee9752fd02c5c, type: 3}
 --- !u!1 &2143798962
 GameObject:

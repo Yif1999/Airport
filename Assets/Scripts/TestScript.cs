@@ -1,91 +1,104 @@
 using System;
 using System.Net.Sockets;
 using UnityEngine;
-using Tutorial;
 using Google.Protobuf;
 using System.Net;
 using System.Threading;
-using System.Text;
+using ClientMsg = NeurAR.Client;
+using CamMsg = NeurAR.Camera;
 
 public class TestScript : MonoBehaviour
 {
-
-    static Socket client;
+    public Camera mainCam;
+    private CamMsg _camMsg;
+    private Socket _client;
+    private Thread _thread;
+    private System.Numerics.Vector3 _camPosition;
+    
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
         try
         {
-             IPAddress pAddress = IPAddress.Parse("127.0.0.1");
-             IPEndPoint pEndPoint = new IPEndPoint(pAddress, 9999);
-             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-             client.Connect(pEndPoint);
-             Debug.Log("Á¬½Ó³É¹¦");
-             //´´½¨Ïß³Ì£¬Ö´ĞĞ¶ÁÈ¡·şÎñÆ÷ÏûÏ¢
-             Thread c_thread = new Thread(Received);
-             c_thread.IsBackground = true;
-             c_thread.Start();
+            var pAddress = IPAddress.Parse("127.0.0.1");
+            var pEndPoint = new IPEndPoint(pAddress, 8080);
+            _client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _client.Connect(pEndPoint);
+            Debug.Log("è¿æ¥æˆåŠŸ");
+            //åˆ›å»ºçº¿ç¨‹ï¼Œæ‰§è¡Œè¯»å–æœåŠ¡å™¨æ¶ˆæ¯
+            _thread = new Thread(Received)
+            {
+                IsBackground = true
+            };
+            _thread.Start();
         }
-        catch (System.Exception)
+        catch (Exception)
         {
-             Debug.Log("Î´ÄÜÁ¬½Ó");
+            Debug.Log("æœªèƒ½è¿æ¥");
         }
-        stream.Close();
-        client.Close();
+        
+    }
 
+    private void OnApplicationQuit()
+    {
+        ClientClose();
+        _thread.Abort();
+        _thread.Join();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
         gameObject.transform.Rotate(0, 1, 0);
-
+        mainCam.transform.localEulerAngles = new Vector3(0,0,_camPosition.Z);
     }
 
-    static void ListPeople(AddressBook addressBook)
+    private void Received()
     {
-        foreach (Person person in addressBook.People)
+        
+        var clientMsg = new ClientMsg
         {
-            Debug.Log("Person ID: " + person.Id);
-            Debug.Log("  Name: " + person.Name);
-            Debug.Log("  E-mail address: " + person.Email);
-
-        }
-    }
-
-    public static void Received()
-    {
+            Timestamp = GetTimeStamp(),
+            Type = ClientMsg.Types.ClientType.Unity
+        };
+        var clientData = clientMsg.ToByteArray();
+        var dataLength = BitConverter.GetBytes(clientData.Length);
+        Debug.Log(clientData.Length);
+        _client.Send(dataLength);
+        _client.Send(clientData);
+        Debug.Log("Sent type message.");
+        
         while (true)
         {
-            try
-            {
-                byte[] buffer = new byte[1000];
-                int len = client.Receive(buffer);
-                if (len == 0) break;
-                AddressBook addressBook = AddressBook.Parser.ParseFrom(buffer,0,len);
-                Debug.Log("À´×Ô·şÎñÆ÷£º" + addressBook.People[0].Name);
-            }
-           catch (System.Exception)
-            {
-    
-                throw;
-            }
+
+            var bufferLength = new byte[4];
+            _client.Receive(bufferLength);
+            var length = BitConverter.ToInt32(bufferLength, 0);
+            var buffer = new byte[length];
+            var len = _client.Receive(buffer);
+            _camMsg = NeurAR.Camera.Parser.ParseFrom(buffer, 0, len);
+            Debug.Log("æ¥è‡ªæœåŠ¡å™¨ï¼š" + _camMsg.Rotation.Z);
+            _camPosition = new System.Numerics.Vector3(0,0,_camMsg.Rotation.Z);
 
         }
     }
 
-    public static void close()
+    private void ClientClose()
     {
         try
         {
-            client.Close();
-            Debug.Log("¹Ø±Õ¿Í»§¶ËÁ¬½Ó");
+            _client.Close();
+            Debug.Log("å…³é—­å®¢æˆ·ç«¯è¿æ¥");
         }
-        catch (System.Exception)
-        {
-             Debug.Log("Î´Á¬½Ó");
+        catch (Exception)
+        { 
+            Debug.Log("è¿æ¥å·²æå‰ä¸­æ–­");
         }
     }
+
+    private static long GetTimeStamp()
+    {
+        TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        return Convert.ToInt64(ts.TotalMilliseconds);
+    }  
 }
