@@ -24,10 +24,10 @@ MonoBehaviour:
       m_SchemaId:
         m_Id: With3Levels
     supportVolumetrics: 1
-    supportVolumetricClouds: 0
+    supportVolumetricClouds: 1
     supportLightLayers: 0
     supportWater: 1
-    waterSimulationResolution: 128
+    waterSimulationResolution: 256
     waterCPUSimulation: 0
     supportDistortion: 1
     supportTransparentBackface: 1
@@ -135,10 +135,10 @@ MonoBehaviour:
       lutFormat: 48
       bufferFormat: 74
     dynamicResolutionSettings:
-      enabled: 0
+      enabled: 1
       useMipBias: 0
-      enableDLSS: 0
-      DLSSPerfQualitySetting: 0
+      enableDLSS: 1
+      DLSSPerfQualitySetting: 2
       DLSSInjectionPoint: 0
       DLSSUseOptimalSettings: 1
       DLSSSharpness: 0.5
