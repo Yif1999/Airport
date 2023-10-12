@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 6911.6455, g: 4029.4907, b: 2299.9182, a: 1}
+  m_IndirectSpecularColor: {r: 4792.5083, g: 5618.2583, b: 6125.2974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -443,7 +443,7 @@ MonoBehaviour:
   causticsIntensity: 0.5
   causticsPlaneBlendDistance: 1
   causticsResolution: 1024
-  causticsBand: 2
+  causticsBand: 1
   virtualPlaneDistance: 4
   foam: 1
   simulationFoamAmount: 0.25
@@ -505,7 +505,7 @@ MonoBehaviour:
   volumeBounds: {fileID: 0}
   volumeDepth: 50
   volumePrority: 0
-  transitionSize: 0.05
+  transitionSize: 0.1
   absorbtionDistanceMultiplier: 3.5
 --- !u!4 &959331008
 Transform:
@@ -622,8 +622,8 @@ Transform:
   m_GameObject: {fileID: 1078428390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.004886923, z: 0, w: 0.9999881}
-  m_LocalPosition: {x: -5.051632, y: -0.95, z: 1.2280599}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: -5.051632, y: -2.3, z: 1.2280599}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -762,7 +762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: be094f8a0c180104781ee9752fd02c5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.74
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: be094f8a0c180104781ee9752fd02c5c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -892,13 +892,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143798962}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.105424725, y: 0.50817156, z: -0.8524657, w: -0.06284575}
+  m_LocalRotation: {x: -0.11339266, y: 0.37979013, z: -0.9168945, w: -0.046968777}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 118.4, y: 194.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 135, y: 194.1, z: 0}
 --- !u!114 &2143798965
 MonoBehaviour:
   m_ObjectHideFlags: 0
