@@ -41,7 +41,7 @@ Material:
     - _Contrast: 0.6
     - _Meniscus_Distortion: 0.01
     - _Meniscus_Height: 0.4
-    - _Noise_Influence: 0.01
+    - _Noise_Influence: 0
     - _Vertical_Distortion: 0.2
     - _Waterline_Height: 0.5
     m_Colors: []
