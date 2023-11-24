@@ -7,7 +7,7 @@ using System.Threading;
 using ClientMsg = NeurAR.Client;
 using CamMsg = NeurAR.Camera;
 
-public class TestScript : MonoBehaviour
+public class ProtobufConnection : MonoBehaviour
 {
     public Camera mainCam;
     private CamMsg _camMsg;
