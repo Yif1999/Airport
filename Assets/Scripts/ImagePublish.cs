@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
@@ -12,9 +13,6 @@ public class ImagePublish : MonoBehaviour
     private ROSConnection ros;
     public string cameraTopicName = "unity/image_raw/compressed";
     public string cameraTransformName = "unity/image_raw/transform_matrix";
-
-    // Setting
-    public int qualityLevel = 50;
 
     // Message
     private CompressedImageMsg compressedImage;
@@ -42,27 +40,36 @@ public class ImagePublish : MonoBehaviour
         camTransformMatrix = new Float64MultiArrayMsg();
         compressedImage = new CompressedImageMsg();
         compressedImage.header.frame_id = frameID;
-        compressedImage.format = "jpeg";
+        compressedImage.format = "jpg";
+        
+        // Start Coroutine
+        StartCoroutine(ROSPublish());
     }
-
-    private void Update()
+    
+    IEnumerator ROSPublish()
     {
-        // publish Image
-        RenderTexture.active = camRenderTex;
-        camTex2D.ReadPixels(new Rect(0, 0, camTex2D.width, camTex2D.height), 0, 0);
-        camTex2D.Apply();
-        compressedImage.data = camTex2D.EncodeToJPG(qualityLevel);
-        ros.Publish(cameraTopicName, compressedImage);
-
-        // publish Transform Matrix
-        Matrix4x4 camToWorldMatrix = fpvCam.cameraToWorldMatrix;
-        camTransformMatrix.data = new double[]
-            {
-            camToWorldMatrix.m00, camToWorldMatrix.m01, camToWorldMatrix.m02, camToWorldMatrix.m03,
-            camToWorldMatrix.m20, camToWorldMatrix.m21, camToWorldMatrix.m22, camToWorldMatrix.m23,
-            camToWorldMatrix.m10, camToWorldMatrix.m11, camToWorldMatrix.m12, camToWorldMatrix.m13,
-            camToWorldMatrix.m30, camToWorldMatrix.m31, camToWorldMatrix.m32, camToWorldMatrix.m33
-            };
-        ros.Publish(cameraTransformName, camTransformMatrix);
+        while (true)
+        {
+            // Prepare Data
+            RenderTexture.active = camRenderTex;
+            camTex2D.ReadPixels(new Rect(0, 0, camTex2D.width, camTex2D.height), 0, 0);
+            camTex2D.Apply();
+            Matrix4x4 camToWorldMatrix = fpvCam.cameraToWorldMatrix;
+            yield return null;
+            
+            // Encode and Publish Data
+            compressedImage.data = camTex2D.EncodeToJPG();
+            camTransformMatrix.data = new double[]
+                {
+                camToWorldMatrix.m00, camToWorldMatrix.m01, camToWorldMatrix.m02, camToWorldMatrix.m03,
+                camToWorldMatrix.m20, camToWorldMatrix.m21, camToWorldMatrix.m22, camToWorldMatrix.m23,
+                camToWorldMatrix.m10, camToWorldMatrix.m11, camToWorldMatrix.m12, camToWorldMatrix.m13,
+                camToWorldMatrix.m30, camToWorldMatrix.m31, camToWorldMatrix.m32, camToWorldMatrix.m33
+                };
+            ros.Publish(cameraTopicName, compressedImage);
+            ros.Publish(cameraTransformName, camTransformMatrix);
+            yield return null;
+        }
     }
+    
 }
