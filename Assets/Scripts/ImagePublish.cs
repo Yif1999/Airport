@@ -11,8 +11,8 @@ public class ImagePublish : MonoBehaviour
 {
     // ROS Connector
     private ROSConnection ros;
-    public string cameraTopicName = "unity/image_raw/compressed";
-    public string cameraTransformName = "unity/image_raw/transform_matrix";
+    public string cameraTopicName = "/unity/image_raw/compressed";
+    public string cameraTransformName = "/unity/image_raw/transform_matrix";
 
     // Message
     private CompressedImageMsg compressedImage;
@@ -28,7 +28,7 @@ public class ImagePublish : MonoBehaviour
         // start the ROS connection
         ros = ROSConnection.GetOrCreateInstance();
         ros.RegisterPublisher<CompressedImageMsg>(cameraTopicName);
-        ros.RegisterPublisher<Float32MultiArrayMsg>(cameraTransformName);
+        ros.RegisterPublisher<Float64MultiArrayMsg>(cameraTransformName);
 
 		// get render texture
 		fpvCam = GetComponent<Camera>();
