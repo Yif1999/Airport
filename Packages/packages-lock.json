@@ -130,7 +130,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.recorder": {
-      "version": "4.0.1",
+      "version": "4.0.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
