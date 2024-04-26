@@ -58,3 +58,4 @@ public class ReplayManager : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation,rotation, Mathf.Max(0.01f,1 - damping));
     }
 }
+
