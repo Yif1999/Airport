@@ -21,7 +21,7 @@ public class ExampleEditorScript : MonoBehaviour
         Color[] colors = new Color[size * size * size];
         
         // 读取 numpy 数组文件
-        string path = "Assets/Dataset/sdf3d.txt";
+        string path = "Assets/Dataset/density3d.txt";
         var streamReader = new StreamReader(path);
         float[] values = new float[size * size * size];
         int id = 0;

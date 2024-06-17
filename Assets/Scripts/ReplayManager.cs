@@ -44,12 +44,13 @@ public class ReplayManager : MonoBehaviour
         if (Time.time > nextTime)
         {
             
-            position = new Vector3(float.Parse(rowData[currentLine][5]),
-                                    float.Parse(rowData[currentLine][4]),
-                                    float.Parse(rowData[currentLine][6]));
-            rotation = Quaternion.Euler(new Vector3(rpyOffset.x+rpyScale.x*float.Parse(rowData[currentLine][1]), 
+            position = new Vector3(float.Parse(rowData[currentLine][4]),
+                                    float.Parse(rowData[currentLine][6]),
+                                    -float.Parse(rowData[currentLine][5]));
+            rotation = Quaternion.Euler(new Vector3(
                 rpyOffset.z+rpyScale.z*float.Parse(rowData[currentLine][3]), 
-                rpyOffset.y+rpyScale.y*float.Parse(rowData[currentLine][2])));
+                rpyOffset.y+rpyScale.y*float.Parse(rowData[currentLine][2]),
+                rpyOffset.x+rpyScale.x*float.Parse(rowData[currentLine][1])));
             currentLine++;
             nextTime = float.Parse(rowData[currentLine][0]);
         }

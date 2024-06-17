@@ -1,4 +1,4 @@
-Shader "HDRP/SHVis"
+Shader "Custom/SHVis"
 {
     Properties
     {
@@ -522,6 +522,10 @@ Shader "HDRP/SHVis"
             #pragma vertex Vert
             #pragma fragment Pixel
 
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _SHCoefficients[3])
+            UNITY_INSTANCING_BUFFER_END(Props)
+
             // Ref: "Efficient Evaluation of Irradiance Environment Maps" from ShaderX 2
             real SHEvalLinearL0L1(real3 N, real4 shA)
             {
@@ -566,10 +570,10 @@ Shader "HDRP/SHVis"
                 // LPPV is not supported in Ligthweight Pipeline
                 real4 SHCoefficients[3];
                 SHCoefficients[0] = float4(0, 0, 0, 0);
-                SHCoefficients[1] = float4(0, 0, 0, 0);
-                SHCoefficients[2] = 1;
+                SHCoefficients[1] = float4(0.2, 0.3, 0.34, 0);
+                SHCoefficients[2] = 0.1;
 
-                return max(0, SampleSH9(SHCoefficients, normalWS));
+                return max(0, SampleSH9(UNITY_ACCESS_INSTANCED_PROP(Props, _SHCoefficients), normalWS));
             }
 
             void Pixel(PackedVaryingsToPS packedInput, out float4 outColor : SV_Target0)
