@@ -1,12 +1,18 @@
+using System;
+using System.IO;
 using UnityEngine;
 
 public class SHArray : MonoBehaviour
 {
     public Transform SHball;
     public Transform box;
+    public String filePath;
     private int instances = 16*16*16;
     void Start()
     {
+        float[][] shBuffer = LoadSHCoefficientsFromFile(filePath);
+        // Debug.Log(shBuffer.Length);
+        
         Vector3 boxSize = box.localScale; // 获取Box的大小
         int instancePerSide = Mathf.CeilToInt(Mathf.Pow(instances, 1f/3f)); // 计算每边需要排布的球体数量
 
@@ -30,6 +36,9 @@ public class SHArray : MonoBehaviour
                     instance.SetParent(transform);
                     
                     Vector4[] shCoefficients = new Vector4[3];
+                    shCoefficients[0] = new Vector4(0,0,0,0);
+                    shCoefficients[1] = new Vector4(0,0,0,0);
+                    shCoefficients[2] = new Vector4(0, 0, 0, 0);
                     properties.SetVectorArray("_SHCoefficients", shCoefficients);
                     instance.GetComponent<MeshRenderer>().SetPropertyBlock(properties);
                 }
@@ -38,4 +47,38 @@ public class SHArray : MonoBehaviour
             
         }
     }
+    
+    float[][] LoadSHCoefficientsFromFile(string path)
+    {
+        // 检查文件是否存在
+        if (!File.Exists(path))
+        {
+            Debug.LogError("File does not exist: " + path);
+            return null;
+        }
+
+        string[] lines = File.ReadAllLines(path);
+        float[][] coefficients = new float[lines.Length][];
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] stringValues = lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            coefficients[i] = new float[stringValues.Length];
+
+            for (int j = 0; j < stringValues.Length; j++)
+            {
+                if (float.TryParse(stringValues[j], out float value))
+                {
+                    coefficients[i][j] = value;
+                }
+                else
+                {
+                    Debug.LogError("Parsing failed at line " + (i + 1) + " value " + (j + 1));
+                }
+            }
+        }
+
+        return coefficients;
+    }
+    
 }

@@ -176,10 +176,10 @@ MonoBehaviour:
     m_Value: 2
   m_MinSmoothness:
     m_OverrideState: 0
-    m_Value: 0.9
+    m_Value: 0.4
   m_SmoothnessFadeStart:
     m_OverrideState: 0
-    m_Value: 0.9
+    m_Value: 0.5
   reflectSky:
     m_OverrideState: 0
     m_Value: 1
@@ -247,7 +247,7 @@ MonoBehaviour:
     m_Value: 1
   m_DenoiserRadius:
     m_OverrideState: 0
-    m_Value: 8
+    m_Value: 12
   m_AffectSmoothSurfaces:
     m_OverrideState: 0
     m_Value: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
     m_Value: 50
   m_ClampValue:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 3
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -352,7 +352,7 @@ MonoBehaviour:
     m_Value: 0
   m_DenoiserRadius:
     m_OverrideState: 0
-    m_Value: 0.6
+    m_Value: 1
   m_SecondDenoiserPass:
     m_OverrideState: 0
     m_Value: 1
