@@ -11,10 +11,9 @@ public class SHArray : MonoBehaviour
     void Start()
     {
         float[][] shBuffer = LoadSHCoefficientsFromFile(filePath);
-        // Debug.Log(shBuffer.Length);
         
         Vector3 boxSize = box.localScale; // 获取Box的大小
-        int instancePerSide = Mathf.CeilToInt(Mathf.Pow(instances, 1f/3f)); // 计算每边需要排布的球体数量
+        int instancePerSide = Mathf.FloorToInt(Mathf.Pow(instances, 1f/3f)); // 计算每边需要排布的球体数量
 
         // 计算均匀分布的间隔
         float spacingX = boxSize.x / instancePerSide;
@@ -35,11 +34,14 @@ public class SHArray : MonoBehaviour
                     instance.localPosition = localPos;
                     instance.SetParent(transform);
                     
-                    Vector4[] shCoefficients = new Vector4[3];
-                    shCoefficients[0] = new Vector4(0,0,0,0);
-                    shCoefficients[1] = new Vector4(0,0,0,0);
-                    shCoefficients[2] = new Vector4(0, 0, 0, 0);
-                    properties.SetVectorArray("_SHCoefficients", shCoefficients);
+                    int index = x + y * instancePerSide + z * instancePerSide * instancePerSide;
+                    Matrix4x4 shCoefficients = new Matrix4x4(
+                        new Vector4(shBuffer[index][0], shBuffer[index][1], shBuffer[index][2], shBuffer[index][3]), // 第1列
+                        new Vector4(shBuffer[index][4], shBuffer[index][5], shBuffer[index][6], shBuffer[index][7]), // 第2列
+                        new Vector4(shBuffer[index][8], 0f, 0f, 0f),                                                 // 第3列
+                        new Vector4(0f, 0f, 0f, 1f)                                                                  // 第4列
+                    );
+                    properties.SetMatrix("_SHCoefficients", shCoefficients);
                     instance.GetComponent<MeshRenderer>().SetPropertyBlock(properties);
                 }
             }

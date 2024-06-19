@@ -22,6 +22,10 @@ Shader "Custom/SHVis"
             #pragma multi_compile_instancing
             #include "UnityCG.cginc"
 
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float4x4, _SHCoefficients)
+            UNITY_INSTANCING_BUFFER_END(Props)
+            
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -48,7 +52,10 @@ Shader "Custom/SHVis"
             fixed4 frag(v2f i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
-                return _Color;
+                float4x4 shCoef = UNITY_ACCESS_INSTANCED_PROP(Props, _SHCoefficients);
+                float a = shCoef._m11;
+                
+                return float4(a,a,a,1);
             }
             ENDCG
         }
