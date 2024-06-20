@@ -10,7 +10,6 @@ Shader "Custom/BoundingBox"
 		Tags { "Queue"="Transparent" }
 		Pass {
 
-			//如果要显示背面的线框，取消下面两个注释即可
 			cull off
 			ZWrite off
 			blend srcalpha oneminussrcalpha
@@ -45,7 +44,7 @@ Shader "Custom/BoundingBox"
 
 			float4 frag(v2f i) : SV_Target {
 
-				fixed4 col = fixed4(0,0,0,0);//Cube的基础颜色
+				fixed4 col = fixed4(0,0,0,0); //Cube的基础颜色
 				
 				col += saturate(step(i.uv.x, _Width) + step(1 - _Width, i.uv.x) + step(i.uv.y, _Width) + step(1 - _Width, i.uv.y)) * _Color;
 
