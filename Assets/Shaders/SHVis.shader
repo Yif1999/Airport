@@ -10,7 +10,7 @@ Shader "Custom/SHVis"
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-        Cull off
+        Cull Back
         ZWrite On
 
         Pass

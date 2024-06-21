@@ -34,13 +34,14 @@ public class SHArray : MonoBehaviour
                     instance.localPosition = localPos;
                     instance.SetParent(transform);
                     
-                    int index = x + y * instancePerSide + z * instancePerSide * instancePerSide;
+                    int index = z + y * instancePerSide + x * instancePerSide * instancePerSide;
                     Matrix4x4 shCoefficients = new Matrix4x4(
                         new Vector4(shBuffer[index][0], shBuffer[index][1], shBuffer[index][2], shBuffer[index][3]), // 第1列
                         new Vector4(shBuffer[index][4], shBuffer[index][5], shBuffer[index][6], shBuffer[index][7]), // 第2列
                         new Vector4(shBuffer[index][8], 0f, 0f, 0f),                                                 // 第3列
                         new Vector4(0f, 0f, 0f, 1f)                                                                  // 第4列
                     );
+
                     properties.SetMatrix("_SHCoefficients", shCoefficients);
                     instance.GetComponent<MeshRenderer>().SetPropertyBlock(properties);
                 }
