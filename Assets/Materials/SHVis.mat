@@ -309,7 +309,7 @@ Material:
     - _CarPaint2_FlakeNumThetaI: 0
     - _CarPaint2_FlakeNumThetaIF: 0
     - _CarPaint2_LobeCount: 0
-    - _Ceil: -69
+    - _Ceil: 15.8
     - _CheckerBoardScale: 10
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -367,7 +367,7 @@ Material:
     - _EnvironmentReflections: 1
     - _Flags: 0
     - _FlagsB: 8388608
-    - _Floor: -34.3
+    - _Floor: 0
     - _FogVolumeAlphaBlendOp: 0
     - _FogVolumeBlendMode: 1
     - _FogVolumeColorBlendOp: 0

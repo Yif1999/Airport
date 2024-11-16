@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CameraControl : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
