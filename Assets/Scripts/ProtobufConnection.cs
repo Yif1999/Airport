@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Net.Sockets;
 using UnityEngine;
 using Google.Protobuf;
@@ -8,6 +9,13 @@ using ClientMsg = NeurAR.Client;
 using CamMsg = NeurAR.Camera;
 using HeadMsg = NeurAR.Head;
 using ImageMsg = NeurAR.Image;
+
+public enum CameraState
+{
+    Idle,
+    WaitingForMove,
+    WaitingForSend,
+}
 
 public class ProtobufConnection : MonoBehaviour
 {
@@ -23,6 +31,7 @@ public class ProtobufConnection : MonoBehaviour
     private RenderTexture _camRenderTex;
     private Texture2D _camTex2D;
     private byte[] _encodedImage;
+    private CameraState _camState;
     
     // Start is called before the first frame update
     private void Start()
@@ -31,7 +40,7 @@ public class ProtobufConnection : MonoBehaviour
         _sendCount = 0;
         _camPosition = new CamMsg.Types.Vector3();
         _camRotation = new CamMsg.Types.Vector3();
-        
+        _camState = CameraState.Idle;
         _camRenderTex = mainCam.targetTexture;
         _camTex2D = new Texture2D(_camRenderTex.width, _camRenderTex.height, TextureFormat.RGBAHalf, false);
         _camTex2D.Apply();
@@ -79,13 +88,24 @@ public class ProtobufConnection : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        mainCam.transform.position = new Vector3(_camPosition.X, _camPosition.Y, _camPosition.Z);
-        mainCam.transform.rotation = Quaternion.Euler(_camRotation.X, _camRotation.Y, _camRotation.Z);
-        
         RenderTexture.active = _camRenderTex;
         _camTex2D.ReadPixels(new Rect(0, 0, _camRenderTex.width, _camRenderTex.height), 0, 0);
         _camTex2D.Apply();
         _encodedImage = _camTex2D.EncodeToPNG();
+        
+        if (_camState == CameraState.WaitingForMove)
+        {
+            mainCam.transform.position = new Vector3(_camPosition.X, _camPosition.Y, _camPosition.Z);
+            mainCam.transform.rotation = Quaternion.Euler(_camRotation.X, _camRotation.Y, _camRotation.Z);
+            _camState = CameraState.Idle;
+            StartCoroutine(SetCameraState());
+        }
+    }
+
+    IEnumerator SetCameraState()
+    {
+        yield return null;
+        _camState = CameraState.WaitingForSend;
     }
 
     private void Receive()
@@ -106,9 +126,10 @@ public class ProtobufConnection : MonoBehaviour
             _camMsg = NeurAR.Camera.Parser.ParseFrom(buffer, 0, len);
             _camPosition = _camMsg.Position;
             _camRotation = _camMsg.Rotation;
+            _camState = CameraState.WaitingForMove;
             if (_recvCount < 61)
             {
-                Debug.Log($"[Clinet] Prewarm capturing {_recvCount}/60...");
+                Debug.Log($"[Client] Prewarm capturing {_recvCount}/60...");
             }
         }
     }
@@ -118,7 +139,7 @@ public class ProtobufConnection : MonoBehaviour
         while (true)
         {
             Thread.Sleep(100);
-            if (_recvCount > _sendCount)
+            if (_camState == CameraState.WaitingForSend)
             {
                 var imageMsg = new ImageMsg
                 {
@@ -141,9 +162,12 @@ public class ProtobufConnection : MonoBehaviour
                 _client.Send(headData);
                 SendDataInChunks(_client, imageData);
                 
-                if (_sendCount > 60)
-                    Debug.Log($"[Client] Autonomically Captured {_sendCount - 60} images.");
                 _sendCount++;
+                if (_sendCount > 60)
+                {
+                    Debug.Log($"[Client] Autonomically Captured {_sendCount - 60} images.");
+                }
+                _camState = CameraState.Idle;
             }
         }
     }
