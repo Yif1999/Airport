@@ -10,8 +10,9 @@ Shader "Custom/BoundingBox"
 		Tags { "Queue"="Transparent" }
 		Pass {
 
-			cull off
+			Cull off
 			ZWrite off
+			ZTest Always
 			blend srcalpha oneminussrcalpha
 			CGPROGRAM
 

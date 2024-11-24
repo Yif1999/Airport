@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5474.196, g: 6318.9854, b: 6237.548, a: 1}
+  m_IndirectSpecularColor: {r: 6473.5986, g: 8011.368, b: 9289.751, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,13 +132,13 @@ GameObject:
   - component: {fileID: 99149191}
   - component: {fileID: 99149190}
   - component: {fileID: 99149189}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &99149189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651455991}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43021378, y: 0.000000015532665, z: -0.000000007402422, w: 0.90272707}
+  m_LocalRotation: {x: 0.43021378, y: -0.000000015532665, z: 0.000000007402422, w: 0.90272707}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1223,7 +1223,7 @@ Transform:
   m_GameObject: {fileID: 655009054}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12278779, y: -0.6963643, z: 0.12278779, w: 0.6963643}
-  m_LocalPosition: {x: -0.37, y: -2.27, z: -0}
+  m_LocalPosition: {x: 163.8, y: 50.6, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1521,7 +1521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770752681}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40400794, y: 0.000000015739632, z: -0.0000000069515145, w: 0.91475546}
+  m_LocalRotation: {x: 0.40400797, y: -0.000000010722623, z: 0.0000000047357194, w: 0.91475546}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2476,7 +2476,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096335462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65a09d55854e6f34aa78a385e37936fa, type: 3}
   m_Name: 
@@ -2751,7 +2751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178227267}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42500058, y: 0.000000031150194, z: -0.000000014625442, w: 0.90519315}
+  m_LocalRotation: {x: 0.42500058, y: -0.000000032839967, z: 0.000000015418813, w: 0.90519315}
   m_LocalPosition: {x: 0, y: 9.751581, z: -7.9073167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4201,7 +4201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2084928423
 RectTransform:
   m_ObjectHideFlags: 0
