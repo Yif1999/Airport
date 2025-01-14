@@ -16,7 +16,7 @@ public class PoseUpdate : MonoBehaviour
     void PoseSync(Pose msg)
     {
         position = new Vector3((float)msg.data[0], (float)msg.data[1], (float)msg.data[2]);
-        rotation = Quaternion.Euler(new Vector3((float)msg.data[3], (float)msg.data[4], (float)msg.data[5]));
+        rotation = new Quaternion((float)msg.data[3], (float)msg.data[4], (float)msg.data[5], (float)msg.data[6]);
     }
 
     void Update()

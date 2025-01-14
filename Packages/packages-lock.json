@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.autodesk.fbx": {
+      "version": "5.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.cn"
+    },
     "com.cesium.unity": {
       "version": "1.12.0",
       "depth": 0,
@@ -85,6 +92,16 @@
         "com.unity.test-framework": "1.3.9",
         "com.unity.testtools.codecoverage": "1.2.4"
       }
+    },
+    "com.unity.formats.fbx": {
+      "version": "5.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.7.1",
+        "com.autodesk.fbx": "5.0.0"
+      },
+      "url": "https://packages.unity.cn"
     },
     "com.unity.ide.rider": {
       "version": "3.0.24",

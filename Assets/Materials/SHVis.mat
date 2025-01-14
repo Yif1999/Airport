@@ -309,7 +309,7 @@ Material:
     - _CarPaint2_FlakeNumThetaI: 0
     - _CarPaint2_FlakeNumThetaIF: 0
     - _CarPaint2_LobeCount: 0
-    - _Ceil: 15.8
+    - _Ceil: 17.91
     - _CheckerBoardScale: 10
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -367,7 +367,7 @@ Material:
     - _EnvironmentReflections: 1
     - _Flags: 0
     - _FlagsB: 8388608
-    - _Floor: 0
+    - _Floor: 9.1
     - _FogVolumeAlphaBlendOp: 0
     - _FogVolumeBlendMode: 1
     - _FogVolumeColorBlendOp: 0
@@ -508,6 +508,7 @@ Material:
     - _CarPaint2_CTCoeffs: {r: 1, g: 1, b: 1, a: 1}
     - _CarPaint2_CTF0s: {r: 1, g: 1, b: 1, a: 1}
     - _CarPaint2_CTSpreads: {r: 1, g: 1, b: 1, a: 1}
+    - _CeilColor: {r: 0, g: 0.29999995, b: 1, a: 0}
     - _ClearcoatNormalMap_SO: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0.7524113, g: 1, b: 0.4292453, a: 1}
     - _Color_1: {r: 0.20784315, g: 0.62352943, b: 0.22745097, a: 1}
@@ -518,6 +519,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _FloorColor: {r: 0, g: 1, b: 0.6120219, a: 1}
     - _FogVolumeSingleScatteringAlbedo: {r: 1, g: 1, b: 1, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}

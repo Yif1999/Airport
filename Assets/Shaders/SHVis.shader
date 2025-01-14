@@ -4,6 +4,8 @@ Shader "Custom/SHVis"
     {
         _Floor("Floor", float) = 0
         _Ceil("Ceil", float) = 1
+        _FloorColor("FloorColor", Color) = (1,1,1,1)
+        _CeilColor("CeilColor", Color) = (0,0,0,0)
     }
 
     SubShader
@@ -27,6 +29,8 @@ Shader "Custom/SHVis"
 
             uniform float _Floor;
             uniform float _Ceil;
+            uniform float4 _FloorColor;
+            uniform float4 _CeilColor;
 
             UNITY_INSTANCING_BUFFER_START(Props)
                 UNITY_DEFINE_INSTANCED_PROP(float4x4, _SHCoefficients)
@@ -108,8 +112,9 @@ Shader "Custom/SHVis"
                 
                 float rawUncer = SampleSH9(shCoef, i.normalWS);
                 float remapUncer = Remap(rawUncer, _Floor, _Ceil, 0, 1);
+                float4 visColor = lerp(_FloorColor, _CeilColor, remapUncer);
                 
-                return fixed4(remapUncer, remapUncer, remapUncer, 1);
+                return visColor;
                 
             }
             ENDCG
